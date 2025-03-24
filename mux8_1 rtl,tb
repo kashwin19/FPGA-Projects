@@ -1,0 +1,57 @@
+// Code your design here
+module mux8_1(
+  input [7:0] in,
+  input [2:0] sel,
+  output reg y);
+  always@(*)begin
+      case(sel)
+        3'b000 : y = in[0];
+        3'b001  : y= in[1];
+        3'b010 : y = in[2];
+        3'b011 : y = in[3];
+        3'b100 : y = in[4];
+        3'b101 : y = in[5];
+        3'b110 : y = in[6];
+        3'b111 : y = in[7];
+        default : y =3'b000;
+      endcase
+    end
+endmodule
+
+// Code your testbench here
+// or browse Examples
+module mux8_1_tb();
+  reg [7:0]in;
+  reg [2:0]sel;
+  wire y;
+  
+  mux8_1 dut (.in(in),
+              .sel(sel),
+              .y(y));
+  initial
+    begin
+      $dumpfile("mux8_1.vcd");
+      $dumpvars(0,mux8_1_tb);
+    end
+  initial
+    begin
+      
+
+       in = 8'b11110000;// Example input pattern
+
+      // Start monitoring
+      $monitor("Time=%0t | in=%b | sel=%b | y=%b", $time, in, sel, y);
+      
+      // Apply test cases
+      sel = 3'b000; #5;
+      sel = 3'b001; #5;
+      sel = 3'b010; #5;
+      sel = 3'b011; #5;
+      sel = 3'b100; #5;
+      sel = 3'b101; #5;
+      sel = 3'b110; #5;
+      sel = 3'b111; #5;
+
+      $finish;
+  end
+endmodule
