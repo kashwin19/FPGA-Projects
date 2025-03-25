@@ -1,0 +1,39 @@
+module demux1_8(
+    input wire in,
+    input [2:0] sel,
+    output reg [7:0] out
+);
+    
+always @(*) begin
+    out = 8'b00000000; // Default all LEDs off
+    case(sel)
+        3'b000: out[0] = in;
+        3'b001: out[1] = in;
+        3'b010: out[2] = in;
+        3'b011: out[3] = in;
+        3'b100: out[4] = in;
+        3'b101: out[5] = in;
+        3'b110: out[6] = in;
+        3'b111: out[7] = in;
+    endcase
+end
+
+CONSTRAINTS FILE
+  ## DEMUX 1:8 - WORKING Basys 3 Configuration
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+set_property CFGBVS VCCO [current_design]
+
+# Input (BTN0)
+set_property -dict { PACKAGE_PIN U18 IOSTANDARD LVCMOS33 } [get_ports in]
+
+
+set_property PACKAGE_PIN V17 [get_ports {sel[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {sel[0]}]
+set_property PACKAGE_PIN V16 [get_ports {sel[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {sel[1]}]
+set_property PACKAGE_PIN W16 [get_ports {sel[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {sel[2]}]
+
+# Output LEDs (LD0-LD7)
+set_property PACKAGE_PIN U16 [get_ports out[0]]
+set_property IOSTANDARD LVCMOS33 [get_ports out[0]]
