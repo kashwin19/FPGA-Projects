@@ -1,0 +1,67 @@
+//rtl
+
+
+module encoder(
+    input wire [7:0] in,
+    output reg [2:0] out
+    );
+    
+    always@(*)begin
+    casez(in)
+    8'b00000001 : out = 3'b000;
+    8'b0000001? : out = 3'b001;
+    8'b000001?? : out = 3'b010;
+    8'b00001??? : out = 3'b011;
+    8'b0001???? : out = 3'b100;
+    8'b001????? : out = 3'b101;
+    8'b01?????? : out = 3'b110;
+    8'b1??????? : out = 3'b111;
+    default:out = 3'b000;
+    endcase
+    end
+    
+endmodule
+
+
+//constraints file
+
+
+
+## 8x3 Encoder - Basys 3 Configuration
+set_property CONFIG_VOLTAGE 3.3 [current_design]
+set_property CFGBVS VCCO [current_design]
+
+# 8-bit Input Signals (Switches SW0-SW7)
+set_property PACKAGE_PIN V17 [get_ports in[0]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[0]]
+
+set_property PACKAGE_PIN V16 [get_ports in[1]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[1]]
+
+set_property PACKAGE_PIN W16 [get_ports in[2]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[2]]
+
+set_property PACKAGE_PIN W17 [get_ports in[3]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[3]]
+
+set_property PACKAGE_PIN W15 [get_ports in[4]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[4]]
+
+set_property PACKAGE_PIN V15 [get_ports in[5]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[5]]
+
+set_property PACKAGE_PIN W14 [get_ports in[6]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[6]]
+
+set_property PACKAGE_PIN W13 [get_ports in[7]]
+set_property IOSTANDARD LVCMOS33 [get_ports in[7]]
+
+# 3-bit Encoded Output (Display on LEDs LD0-LD2)
+set_property PACKAGE_PIN U16 [get_ports out[0]]
+set_property IOSTANDARD LVCMOS33 [get_ports out[0]]
+
+set_property PACKAGE_PIN E19 [get_ports out[1]]
+set_property IOSTANDARD LVCMOS33 [get_ports out[1]]
+
+set_property PACKAGE_PIN U19 [get_ports out[2]]
+set_property IOSTANDARD LVCMOS33 [get_ports out[2]]
